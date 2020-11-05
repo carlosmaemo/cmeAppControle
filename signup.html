@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>CME Web</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merienda+One">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	<link type="text/css" rel="stylesheet" href="estilo/signup.css" />
+</head>
+
+<body>
+
+	<div class="signup-form">
+		<form id="signup-form">
+			<h2>Signup</h2>
+			<p class="hint-text">Crie uma conta para continuar</p>
+
+			<div class="form-group">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-user"></i></span>
+					<input type="text" class="form-control" id="signup-nome" name="first_name" placeholder="Seu Nome" required="required">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-user"></i></span>
+					<input type="email" class="form-control" id="signup-email" name="email" placeholder="Endereço de Email" required="required">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-lock"></i></span>
+					<input type="password" class="form-control" id="signup-senha" name="password" placeholder="Senha" required="required">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-lock"></i></span>
+					<input type="password" class="form-control" name="confirm_password" placeholder="Confirmar Senha" required="required">
+				</div>
+			</div>
+			<div class="form-group">
+				<button type="submit" class="btn btn-success btn-lg btn-block">Criar Conta</button>
+			</div>
+			<div class="text-center">Já tem uma conta? <a href="sigin.html">Iniciar sessão agora</a></div>
+		</form>
+	</div>
+
+
+	<script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-database.js"></script>
+
+	<script>
+
+  var firebaseConfig = {
+    apiKey: "AIzaSyAr7pGmlH5AG2YEANT-OeNbFTjah0phmsg",
+    authDomain: "cme-app-2019bf.firebaseapp.com",
+    databaseURL: "https://cme-app-2019bf.firebaseio.com",
+    projectId: "cme-app-2019bf",
+    storageBucket: "cme-app-2019bf.appspot.com",
+    messagingSenderId: "41719498762",
+    appId: "1:41719498762:web:31ef2e05bf9e2175"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+
+  // Fazendo referências
+  const auth = firebase.auth();
+  const db = firebase.database();
+  
+  // Actualizar definições da base de dados
+  try{ db.settings({ timestampsInSnapshots: true }); }catch(e){}
+
+</script>
+
+	<script src="script/signup.js"></script>
+
+
+</body>
+
+</html>

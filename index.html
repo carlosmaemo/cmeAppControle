@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>CME App (Controle)</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merienda+One">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+
+	<link type="text/css" rel="stylesheet" href="estilo/index.css" />
+
+</head>
+
+<body style="background-color: #e9ecef">
+
+	<!-- navbar menu -->
+	<nav class="navbar navbar-default navbar-expand-xl navbar-light">
+		<div class="navbar-header d-flex col">
+			<a class="navbar-brand" href="#"><b> CME</b> App (Controle)</a>
+			<button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle navbar-toggler ml-auto">
+			<span class="navbar-toggler-icon"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		</div>
+
+		<div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
+			<ul class="nav navbar-nav">
+				<li class="nav-item dropdown">
+					<a data-toggle="dropdown" class="nav-link dropdown-toggle" href="#">Pre-marcação <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="#" data-toggle="modal" data-target="#modal-gestao-agendamento" class="dropdown-item">Agendamentos</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#modal-gestao-agendamento-pendente" class="dropdown-item">Agendamentos pendente</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#modal-gestao-agendamento-desmarcado" class="dropdown-item">Agendamentos desmarcado</a></li>
+					</ul>
+				</li>
+				<li class="nav-item dropdown">
+					<a data-toggle="dropdown" class="nav-link dropdown-toggle" href="#">Consultas <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="#" data-toggle="modal" data-target="#modal-adicionar-consulta" class="dropdown-item">Programar consulta</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#modal-gestao-consulta" class="dropdown-item">Consultas programadas</a></li>
+					</ul>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="modal" data-target="#modal-gestao-conversas" href="#">Conversas</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" id="menu-lista-paciente" data-toggle="modal" data-target="#modal-gestao-paciente" href="#">Lista de pacientes</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link disabled" id="menu-lista-funcionario" data-toggle="modal" data-target="#modal-gestao-usuario" href="#">Lista de funcionários</a>
+				</li>
+				<li class="nav-item dropdown">
+					<a data-toggle="dropdown" id="menu-lista-definicoes" class="nav-link dropdown-toggle disabled" href="#">Definições <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="#" data-toggle="modal" data-target="#modal-definicao-conta" class="dropdown-item">Conta</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#modal-definicao-notificacao" class="dropdown-item">Mensagem de notificação</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#modal-definicao-informacao" class="dropdown-item">Informações</a></li>
+					</ul>
+				</li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right ml-auto">
+				<li class="nav-item">
+					<a class="nav-link" href="#" id="logout"><i class="fa fa-sign-out"></i> Sair</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<!-- /navbar menu -->
+
+	<!-- accordion menu -->
+	<div class="container mt-5">
+		<div class="row">
+			<div class="col-lg-9">
+				<div class="jumbotron">
+					<h1 class="display-4" id="titulo">Olá, seja bem-vindo/a!</h1>
+					<p class="lead">O sistema CME App proporciona mais agilidade, facilidade e controle na gestão de marcações de consultas e comunicação
+						com os utentes visando a flexibilização dos nossos serviços.</p>
+					<hr class="my-4">
+					<p class="font-weight-normal">©2019 - 2020 Centro Médico Embondeiro Limitada.</p>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!-- /accordion menu -->
+
+	<!-- modal lista conversas -->
+	<div class="modal fade" id="modal-gestao-conversas" tabindex="-1" role="dialog" aria-labelledby="modal-gestao-conversas-titulo"
+		aria-hidden="true">
+		<div class="modal-dialog-scrollable modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modal-gestao-conversas-titulo">Conversas</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+				</div>
+				<div class="modal-body">
+
+					<!-- gerenciar lista conversas tabela -->
+
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th scope="col">Nome</th>
+								<th scope="col">Apelido</th>
+								<th scope="col">Operações</th>
+							</tr>
+						</thead>
+						<tbody id="tbl_lista_conversas_corpo">
+						</tbody>
+					</table>
+
+					<!-- /gerenciar lista conversas tabela -->
+
+				</div>
+				<div class="modal-footer">
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- /modal lista conversas -->
+
+	<!-- modal lista usuarios -->
+	<div class="modal fade" id="modal-gestao-usuario" tabindex="-1" role="dialog" aria-labelledby="modal-gestao-usuario-titulo"
+		aria-hidden="true">
+		<div class="modal-dialog-scrollable modal-dialog modal-xl" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modal-gestao-usuario-titulo">Lista de funcionários</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+				</div>
+				<div class="modal-body">
+
+					<!-- gerenciar lista usuario tabela -->
+
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th scope="col">Nome</th>
+								<th scope="col">Email</th>
+								<th scope="col">Usuário</th>
+							</tr>
+						</thead>
+						<tbody id="tbl_lista_usuario_corpo">
+						</tbody>
+					</table>
+
+					<!-- /gerenciar lista usuario tabela -->
+
+				</div>
+				<div class="modal-footer">
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /modal lista usuario -->
+
+	<!-- modal lista pacientes -->
+	<div class="modal fade" id="modal-gestao-paciente" tabindex="-1" role="dialog" aria-labelledby="modal-gestao-paciente-titulo"
+		aria-hidden="true">
+		<div class="modal-dialog-scrollable modal-dialog modal-xl" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modal-gestao-paciente-titulo">Lista de pacientes</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+				</div>
+				<div class="modal-body">
+
+					<!-- gerenciar lista paciente tabela -->
+
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th scope="col">Nome</th>
+								<th scope="col">Apelido</th>
+								<th scope="col">Celular</th>
+								<th scope="col">Nascimento</th>
+								<th scope="col">Localização</th>
+								<!-- <th scope="col">Operações</th> -->
+							</tr>
+						</thead>
+						<tbody id="tbl_lista_paciente_corpo">
+						</tbody>
+					</table>
+
+					<!-- /gerenciar lista paciente tabela -->
+
+				</div>
+				<div class="modal-footer">
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /modal lista pacientes -->
+
+	<!-- modal gerenciar consulta -->
+	<div class="modal fade" id="modal-gestao-consulta" tabindex="-1" role="dialog" aria-labelledby="modal-gestao-consulta-titulo"
+		aria-hidden="true">
+		<div class="modal-dialog-scrollable modal-dialog modal-xl" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modal-gestao-consulta-titulo">Consultas programadas</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+				</div>
+				<div class="modal-body">
+
+					<!-- gerenciar consulta tabela -->
+
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th scope="col">Consulta</th>
+								<th scope="col">Médico</th>
+								<th scope="col">Data</th>
+								<th scope="col">OrMM</th>
+								<th scope="col">Operações</th>
+							</tr>
+						</thead>
+						<tbody id="tbl_consulta_corpo">
+						</tbody>
+					</table>
+
+					<!-- /gerenciar consulta tabela -->
+
+				</div>
+				<div class="modal-footer">
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /modal gerenciar consulta -->
+
+	<!-- modal gerenciar agendamento pendente -->
+	<div class="modal fade" id="modal-gestao-agendamento-pendente" tabindex="-1" role="dialog" aria-labelledby="modal-gestao-agendamento-pendente-titulo"
+		aria-hidden="true">
+		<div class="modal-dialog-scrollable modal-dialog modal-xl" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modal-gestao-agendamento-pendente-titulo">Agendamentos pendente</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+				</div>
+				<div class="modal-body">
+
+					<!-- gerenciar agendamento pendente tabela -->
+
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th scope="col">Nome</th>
+								<th scope="col">Apelido</th>
+								<th scope="col">PAC</th>
+								<th scope="col">Consulta</th>
+								<th scope="col">Médico</th>
+								<th scope="col">Data</th>
+								<th scope="col">Chegada</th>
+								<th scope="col">Operações</th>
+							</tr>
+						</thead>
+						<tbody id="tbl_agendamento_pendente_corpo">
+						</tbody>
+					</table>
+
+					<!-- /gerenciar agendamento pendente tabela -->
+
+				</div>
+				<div class="modal-footer">
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /modal gerenciar agendamento pendente -->
+
+	<!-- modal gerenciar agendamento desmarcado -->
+	<div class="modal fade" id="modal-gestao-agendamento-desmarcado" tabindex="-1" role="dialog" aria-labelledby="modal-gestao-agendamento-desmarcado-titulo"
+		aria-hidden="true">
+		<div class="modal-dialog-scrollable modal-dialog modal-xl" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modal-gestao-agendamento-desmarcado-titulo">Agendamentos desmarcado</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+				</div>
+				<div class="modal-body">
+
+					<!-- gerenciar agendamento desmarcado tabela -->
+
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th scope="col">Nome</th>
+								<th scope="col">Apelido</th>
+								<th scope="col">PAC</th>
+								<th scope="col">Consulta</th>
+								<th scope="col">Médico</th>
+								<th scope="col">Data</th>
+								<th scope="col">Chegada</th>
+								<th scope="col">Operações</th>
+							</tr>
+						</thead>
+						<tbody id="tbl_agendamento_desmarcado_corpo">
+						</tbody>
+					</table>
+
+					<!-- /gerenciar agendamento desmarcado tabela -->
+
+				</div>
+				<div class="modal-footer">
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /modal gerenciar agendamento desmarcado -->
+
+	<!-- modal gerenciar agendamento -->
+	<div class="modal fade" id="modal-gestao-agendamento" tabindex="-1" role="dialog" aria-labelledby="modal-gestao-agendamento-titulo"
+		aria-hidden="true">
+		<div class="modal-dialog-scrollable modal-dialog modal-xl" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modal-gestao-agendamento-titulo">Agendamentos</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+				</div>
+				<div class="modal-body">
+
+					<!-- gerenciar agendamento tabela -->
+
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th scope="col">Nome</th>
+								<th scope="col">Apelido</th>
+								<th scope="col">PAC</th>
+								<th scope="col">Celular</th>
+								<th scope="col">Consulta</th>
+								<th scope="col">Médico</th>
+								<th scope="col">Data</th>
+								<th scope="col">Chegada</th>
+								<th scope="col">Operações</th>
+							</tr>
+						</thead>
+						<tbody id="tbl_agendamento_corpo">
+						</tbody>
+					</table>
+
+					<!-- /gerenciar agendamento tabela -->
+
+				</div>
+				<div class="modal-footer">
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /modal gerenciar agendamento pendente -->
+
+	<!-- modal enviar mensagem -->
+	<div class="modal fade" id="modal-enviar-mensagem" tabindex="-1" role="dialog" aria-labelledby="modal-enviar-mensagem-titulo"
+		aria-hidden="true">
+		<div class="modal-dialog-centered modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modal-enviar-mensagem-titulo">Enviar Mensagem</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+				</div>
+				<!-- enviar mensagem -->
+				<form id="enviar-mensagem">
+					<div class="modal-body">
+
+						<div class="form-group">
+							<label for="enviar-mensagem-paciente" class="col-form-label">Respondendo à:</label>
+							<input disabled type="text" class="form-control" id="enviar-mensagem-paciente">
+						</div>
+						<div class="form-group">
+							<label for="enviar-mensagem-mensagem" class="col-form-label">Mensagem:</label>
+							<textarea class="form-control" id="enviar-mensagem-mensagem"></textarea>
+						</div>
+					</div>
+					<!-- /adicionar consulta -->
+
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-primary">Enviar</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- /modal enviar mensagem -->
+
+	<!-- modal chat -->
+	<div class="modal fade" id="modal-chat" tabindex="-1" role="dialog" aria-labelledby="modal-chat-titulo" aria-hidden="true">
+		<div class="modal-dialog modal-xl" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modal-chat-titulo">Chat</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+				</div>
+				<!-- enviar mensagem chat -->
+				<form id="chat">
+					<div class="modal-body">
+
+						<!-- lista mensagens chat -->
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th scope="col" style="width:200px">Nome</th>
+									<th scope="col">Mensagem</th>
+									<th scope="col" style="width:200px">Data</th>
+								</tr>
+							</thead>
+							<tbody id="tbl_lista_chat_corpo">
+							</tbody>
+						</table>
+						<!-- /lista mensagens chat -->
+
+					</div>
+					<!-- /adicionar consulta -->
+
+					<div class="modal-footer">
+						<textarea class="form-control" id="enviar-mensagem-chat" placeholder="Mensagem..."></textarea>
+						<button type="submit" class="btn btn-primary">Enviar</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- /modal chat -->
+
+	<!-- modal adicionar consulta -->
+	<div class="modal fade" id="modal-adicionar-consulta" tabindex="-1" role="dialog" aria-labelledby="modal-adicionar-consulta-titulo"
+		aria-hidden="true">
+		<div class="modal-dialog modal-dialog-scrollable" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modal-adicionar-consulta-titulo">Programar consulta</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+
+				</div>
+				<div class="modal-body">
+
+					<!-- adicionar consulta -->
+					<form id="programar-consulta">
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="programar-consulta-consulta">Consulta</label>
+								<select id="programar-consulta-consulta" class="form-control">
+        <option selected>...</option>
+
+        <option value="Cardiologia">Cardiologia</option>
+        <option value="Cirurgia">Cirurgia</option>
+        <option value="Dermantologia">Dermantologia</option>
+        <option value="Fisioterapia">Fisioterapia</option>
+        <option value="Gastroenterologia">Gastroenterologia</option>
+        <option value="Ginecologia">Ginecologia</option>
+        <option value="Medicina Interna">Medicina Interna</option>
+        <option value="Nutrição">Nutrição</option>
+        <option value="Oftalmologia">Oftalmologia</option>
+        <option value="Ortopedia">Ortopedia</option>
+        <option value="Otorrinolaringologia (ORL)">Otorrinolaringologia (ORL)</option>
+        <option value="Pediatria">Pediatria</option>
+        <option value="Pneumologia">Pneumologia</option>
+        <option value="Psicologia">Psicologia</option>
+        <option value="Psiquiatria">Psiquiatria</option>
+        <option value="Urologia">Urologia</option>
+
+      </select>
+								<small id="ajudaConsulta" class="form-text text-muted">
+  Selecione a consulta que decorrerá.
+</small>
+							</div>
+
+							<div class="form-group col-md-6">
+								<label for="programar-consulta-medico">Médico</label>
+								<select id="programar-consulta-medico" class="form-control">
+        <option selected>...</option>
+        <option value="Drª. Ana Mariza">Drª. Ana Mariza</option>
+        <option value="Drª. Felismina">Drª. Felismina</option>
+        <option value="Drª. Isa Gil">Drª. Isa Gil</option>
+        <option value="Drª. Mariela">Drª. Mariela</option>
+        <option value="Drª. Mércia Bila">Drª. Mércia Bila</option>
+        <option value="Dr. Aniceto">Dr. Aniceto</option>
+        <option value="Dr. Dalito Branco">Dr. Dalito Branco</option>
+        <option value="Dr. Dionísio">Dr. Dionísio</option>
+        <option value="Dr. Gomes">Dr. Gomes</option>
+        <option value="Dr. Alberto Jacob">Dr. Alberto Jacob</option>
+        <option value="Dr. Alberto Semente">Dr. Alberto Semente</option>
+        <option value="Dr. Khaizer Bagus">Dr. Khaizer Bagus</option>
+        <option value="Dr. Lourino">Dr. Lourino</option>
+        <option value="Dr. Madeira">Dr. Madeira</option>
+        <option value="Dr. Mário Valdez">Dr. Mário Valdez</option>
+        <option value="Dr. Moreira Castigo">Dr. Moreira Castigo</option>
+        <option value="Dr. Simbine">Dr. Simbine</option>
+        <option value="Dr. Tercílio">Dr. Tercílio</option>
+        <option value="Tec. Felismino">Tec. Felismino</option>
+        <option value="Tec. Inocendy">Tec. Inocendy</option>
+        <option value="Tec. Wilson">Tec. Wilson</option>
+		
+      </select>
+								<small id="ajudaMedico" class="form-text text-muted">
+  O médico responsável pela consulta.
+</small>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="programar-consulta-inf">Informação do especialista</label>
+							<input type="text" class="form-control" id="programar-consulta-inf" placeholder="Informações adicionais do especialista">
+							<small id="ajudaInf" class="form-text text-muted">
+  Insira informações adicionais do médico responsável pela consulta.
+</small>
+						</div>
+						<div class="form-group">
+							<label for="programar-consulta-ormm">OrMM</label>
+							<input type="text" class="form-control" id="programar-consulta-ormm" placeholder="ORMM">
+						</div>
+
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="programar-consulta-data">Data</label>
+								<input type="date" class="form-control" id="programar-consulta-data" placeholder="Data da consulta">
+
+							</div>
+							<div class="form-group col-md-3">
+								<label for="programar-consulta-inicio">Horás início</label>
+								<input type="time" class="form-control" id="programar-consulta-inicio">
+
+							</div>
+							<div class="form-group col-md-3">
+								<label for="programar-consulta-fim">Horás termino</label>
+								<input type="time" class="form-control" id="programar-consulta-fim">
+
+							</div>
+
+						</div>
+						<!-- /adicionar consulta -->
+
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary">Programar</button>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	</div>
+
+
+	<!-- modal definições de conta e encaminhamento -->
+	<div class="modal fade" id="modal-definicao-conta" tabindex="-1" role="dialog" aria-labelledby="modal-definicao-conta-titulo"
+		aria-hidden="true">
+		<div class="modal-dialog modal-dialog-scrollable" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modal-definicao-conta-titulo">Definições de Conta</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+
+				</div>
+				<div class="modal-body">
+
+					<!-- adicionar definições de conta e encaminhamento -->
+					<form id="definicao-conta">
+						<div class="form-row">
+
+							<div class="form-group col-md-6">
+								<label for="definicao-email">Conta predifinida</label>
+								<input type="text" class="form-control" id="definicao-email" placeholder="Email">
+								<small id="ajudaInf" class="form-text text-muted">
+								Insira o Email para envio de notificação.
+								</small>
+							</div>
+
+							<div class="form-group col-md-6">
+								<label for="definicao-senha">&nbsp;</label>
+								<input type="password" class="form-control" id="definicao-senha" placeholder="Senha">
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label for="definicao-encaminhamento">Conta de encaminhamento</label>
+							<input type="text" class="form-control" id="definicao-encaminhamento" placeholder="Email">
+							<small id="ajudaInf" class="form-text text-muted">
+								Insira o Email para recepção de notificação.
+								</small>
+						</div>
+
+
+						<!-- /adicionar definições de conta e encaminhamento -->
+
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-primary">Salvar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- /modal definições de conta e encaminhamento -->
+
+	<!-- modal definições de notificação -->
+	<div class="modal fade" id="modal-definicao-notificacao" tabindex="-1" role="dialog" aria-labelledby="modal-definicao-notificacao-titulo"
+		aria-hidden="true">
+		<div class="modal-dialog modal-dialog-scrollable" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modal-definicao-notificacao-titulo">Definições de Mensagem de Notificação</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+
+				</div>
+				<div class="modal-body">
+
+					<!-- adicionar definições de notificação -->
+					<form id="definicao-notificacao-assMensagem">
+						<div class="form-group">
+							<label for="definicao-assunto">Assunto da mensagem</label>
+							<input type="text" class="form-control" id="definicao-assunto" placeholder="Assunto">
+							<small id="ajudaInf" class="form-text text-muted">
+								Insira o assunto da mensagem (Note que '_$nm' é o nome do paciente).
+								</small>
+						</div>
+
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-primary">Salvar</button>
+						</div>
+					</form>
+
+					<form id="definicao-notificacao-assDesmarcacao">
+						<div class="form-group">
+							<label for="definicao-assunto-desmarcacao">Assunto da desmarcação</label>
+							<input type="text" class="form-control" id="definicao-assunto-desmarcacao" placeholder="Assunto">
+							<small id="ajudaInf" class="form-text text-muted">
+								Insira o assunto da desmarcação (Note que '_$cons' é o nome da consulta).
+								</small>
+						</div>
+
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-primary">Salvar</button>
+						</div>
+					</form>
+
+					<form id="definicao-notificacao-assAgendamento">
+						<div class="form-group">
+							<label for="definicao-assunto-agendamento">Assunto do agendamento</label>
+							<input type="text" class="form-control" id="definicao-assunto-agendamento" placeholder="Assunto">
+							<small id="ajudaInf" class="form-text text-muted">
+								Insira o assunto do agendamento (Note que '_$cons' é o nome da consulta).
+								</small>
+						</div>
+
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-primary">Salvar</button>
+						</div>
+					</form>
+
+					<form id="definicao-notificacao-assRemarcacao">
+						<div class="form-group">
+							<label for="definicao-assunto-remarcacao">Assunto da remarcação</label>
+							<input type="text" class="form-control" id="definicao-assunto-remarcacao" placeholder="Assunto">
+							<small id="ajudaInf" class="form-text text-muted">
+								Insira o assunto da remarcação (Note que '_$cons' é o nome da consulta).
+								</small>
+						</div>
+
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-primary">Salvar</button>
+						</div>
+					</form>
+
+					<form id="definicao-notificacao-assCancelamento">
+						<div class="form-group">
+							<label for="definicao-assunto-cancelamento">Assunto do cancelamento</label>
+							<input type="text" class="form-control" id="definicao-assunto-cancelamento" placeholder="Assunto">
+							<small id="ajudaInf" class="form-text text-muted">
+								Insira o assunto do cancelamento (Note que '_$cons' é o nome da consulta).
+								</small>
+						</div>
+
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-primary">Salvar</button>
+						</div>
+					</form>
+
+					<form id="definicao-notificacao-assinatura">
+						<div class="form-group">
+							<label for="definicao-rodape">Assinatura da mensagem</label>
+							<textarea class="form-control" id="definicao-rodape" class="form-control" rows="3" placeholder="Assinatura"></textarea>
+							<small id="ajudaInf" class="form-text text-muted">
+								Insira a assinatura da mensagem (Note que '_n' é a quebra de linha).
+								</small>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-primary">Salvar</button>
+						</div>
+					</form>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- /modal definições de notificação -->
+
+	<!-- modal definições de informações -->
+	<div class="modal fade" id="modal-definicao-informacao" tabindex="-1" role="dialog" aria-labelledby="modal-definicao-informacao-titulo"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modal-definicao-informacao-titulo">Informações</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+				</div>
+				<div class="modal-body">
+					<!-- adicionar definições de informações -->
+					<form id="definicao-informacao-politica">
+						<div class="form-group">
+							<label for="definicao-politica">Política de qualidade</label>
+							<textarea class="form-control" id="definicao-politica" class="form-control" rows="3" placeholder="..."></textarea>
+							<small id="ajudaInf" class="form-text text-muted">
+								Insira a política de qualidade da aplicação (Note que '_n' é a quebra de linha).
+								</small>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-primary">Salvar</button>
+						</div>
+					</form>
+
+					<form id="definicao-informacao-termo">
+						<div class="form-group">
+							<label for="definicao-termo">Termo de uso</label>
+							<textarea class="form-control" id="definicao-termo" class="form-control" rows="3" placeholder="..."></textarea>
+							<small id="ajudaInf" class="form-text text-muted">
+								Insira o termo de uso da aplicação (Note que '_n' é a quebra de linha).
+								</small>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-primary">Salvar</button>
+						</div>
+					</form>
+
+					<form id="definicao-informacao-sobre">
+						<div class="form-group">
+							<label for="definicao-sobre">Sobre</label>
+							<textarea class="form-control" id="definicao-sobre" class="form-control" rows="3" placeholder="..."></textarea>
+							<small id="ajudaInf" class="form-text text-muted">
+								Insira as informações adicionáis (Note que '_n' é a quebra de linha).
+								</small>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-primary">Salvar</button>
+						</div>
+					</form>
+					<!-- /adicionar definições de notificação -->
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- /modal definições de informações -->
+
+	<script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-database.js"></script>
+
+	<script>
+
+  var firebaseConfig = {
+    apiKey: "AIzaSyAr7pGmlH5AG2YEANT-OeNbFTjah0phmsg",
+    authDomain: "cme-app-2019bf.firebaseapp.com",
+    databaseURL: "https://cme-app-2019bf.firebaseio.com",
+    projectId: "cme-app-2019bf",
+    storageBucket: "cme-app-2019bf.appspot.com",
+    messagingSenderId: "41719498762",
+    appId: "1:41719498762:web:31ef2e05bf9e2175"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+
+  // Fazendo referências
+  const auth = firebase.auth();
+  const db = firebase.database();
+
+  // Actualizar definições da base de dados
+  try{ db.settings({ timestampsInSnapshots: true }); }catch(e){}
+
+</script>
+
+	<script src="script/index.js"></script>
+
+</body>
+
+</html>

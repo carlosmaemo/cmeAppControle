@@ -1,0 +1,86 @@
+body{
+		font-family: 'Roboto', sans-serif;
+	}
+
+    .form-control{
+		height: 40px;
+		box-shadow: none;
+		color: #969fa4;
+	}
+	.form-control:focus{
+		border-color: #5cb85c;
+	}
+    .form-control, .btn{        
+        border-radius: 3px;
+    }
+	.sigin-form{
+		width: 400px;
+		margin: 0 auto;
+		padding: 30px 0;
+	}
+	.sigin-form h2{
+		color: #636363;
+        margin: 0 0 15px;
+		position: relative;
+		text-align: center;
+    }
+	.sigin-form h2:before, .sigin-form h2:after{
+		content: "";
+		height: 2px;
+		width: 30%;
+		background: #d4d4d4;
+		position: absolute;
+		top: 50%;
+		z-index: 2;
+	}	
+	.sigin-form h2:before{
+		left: 0;
+	}
+	.sigin-form h2:after{
+		right: 0;
+	}
+    .sigin-form .hint-text{
+		color: #999;
+		margin-bottom: 30px;
+		text-align: center;
+	}
+    .sigin-form form{
+		color: #999;
+		border-radius: 3px;
+    	margin-bottom: 15px;
+        background: #f2f3f7;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        padding: 30px;
+    }
+	.sigin-form .form-group{
+		margin-bottom: 20px;
+	}
+	.sigin-form input[type="checkbox"]{
+		margin-top: 3px;
+	}
+	.sigin-form .btn{        
+        font-size: 16px;
+        font-weight: bold;		
+		min-width: 140px;
+        outline: none !important;
+    }
+	.sigin-form .row div:first-child{
+		padding-right: 10px;
+	}
+	.sigin-form .row div:last-child{
+		padding-left: 10px;
+	}    	
+    .sigin-form a{
+		color: #fff;
+		text-decoration: underline;
+	}
+    .sigin-form a:hover{
+		text-decoration: none;
+	}
+	.sigin-form form a{
+		color: #5cb85c;
+		text-decoration: none;
+	}	
+	.sigin-form form a:hover{
+		text-decoration: underline;
+	}  
